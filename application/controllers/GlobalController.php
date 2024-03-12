@@ -24,11 +24,35 @@ class GlobalController extends CI_Controller {
         parent::__construct();
 
         $this->load->model('GlobalModel', 'global');
+		$this->load->model('ItemModel', 'item');
     }
 	public function index()
-	{
-        $data['content'] = $this->global->get_content();
+	{	
+		#get last id in table Items
+		$last_item = (int)$this->item->getLastItemId()->id;
+
+		#set a array
+		$all_item = [];
+
+		#loop last id to create whole array
+		for($last=0;$last <= $last_item;$last++){
+			#add value to array using array_push
+			array_push($all_item,$last);
+		}
+
+		#divide the last id into 2
+		$for_rand_num = $last_item/2;
+
+		#generate random number to array
+		$random_keys=array_rand($all_item,$for_rand_num);
+		
+
+		#getting content/data with parameters
+        $data['content'] = $this->item->getItem($random_keys);
+
+
 		$this->load->view('HomeView',$data);
 	}
+
 
 }

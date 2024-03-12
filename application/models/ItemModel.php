@@ -10,9 +10,19 @@ class ItemModel extends CI_Model{
         
     }
 
-   public function getItem(){
-        $sql = "select * from tblItem";
+   public function getItem($ids = null){
+        $where = $ids == null ? '' : 'Where id in ('. implode(",",$ids) .')';
+        $sql = "select * from tblItem {$where}";
 
         return  $this->db->query($sql)->result_array();
+   }
+   public function getLastItemId(){
+        $sql = "select * from tblItem order by id desc limit 1";
+
+        return $this->db->query($sql)->row();
+   }
+   private function getPrivate(){
+
+
    }
 }
