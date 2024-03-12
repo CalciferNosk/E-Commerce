@@ -100,8 +100,10 @@ switch(ENVIRONMENT):
 		# ERS_DB
 		defined('ERS_DB_HOST')      ? null : define('ERS_DB_HOST', 'localhost');  //'localhost'                       
 		defined('ERS_DB_USER')      ? null : define('ERS_DB_USER', 'root'); //'root'
-		defined('ERS_DB_PASSWORD')  ? null : define('ERS_DB_PASSWORD', 'root');
-		defined('ERS_DB_NAME')      ? null : define('ERS_DB_NAME', 'jamon');
+		defined('ERS_DB_PASSWORD')  ? null : define('ERS_DB_PASSWORD', '');
+		defined('ERS_DB_NAME')      ? null : define('ERS_DB_NAME', 'e-com');
 		
 	break;
 endswitch;
+
+

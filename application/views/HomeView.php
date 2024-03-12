@@ -41,7 +41,7 @@
         <div class="container">
             <!-- Navbar brand -->
             <a class="navbar-brand" href="#">
-                <img id="shooping" src="https://mdbcdn.b-cdn.net/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" alt="Shopping" draggable="false" height="30" /></a>
+                <img id="shooping" alt="Shopping" draggable="false" height="30" /></a>
 
             <!-- Toggle button -->
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,28 +121,8 @@
 
 
         <div class="footer">
-            <div class="owl-carousel owl-theme owl-loaded">
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
-                <div class=" card m-1">
-                    content
-                </div>
+            <div id="content">
+                
 
             </div>
         </div>
@@ -156,9 +136,54 @@
     <!-- <script src="<?= base_url() ?>assets/js/ajaxgoogleapis.min.js"></script> -->
     <script src="<?= base_url() ?>assets/js/owl.carousel.min.js"></script>
     <script>
+         var base_url = '<?= base_url() ?>';
         $(document).ready(function() {
-
+           
             $(".owl-carousel").owlCarousel();
+
+        })
+
+        $(window).on('load',function(){
+
+            $.ajax({
+                type: "POST", //method
+                url: base_url + 'get-item', //action
+                data: {id:1}, // inputs
+                datatype: 'json', // return data type
+                success: function(result) {
+
+                    // console.log(JSON.parse(result)[0].ItemName)
+
+                    //create data here
+                    var item = ``;
+                    $.each(JSON.parse(result),function(k,v){
+                        item += `${v.ItemName}`;
+                    })
+                    console.log(item)
+                //     var content = `<div class="owl-carousel owl-theme owl-loaded"  ></div><div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div>
+                // <div class=" card m-1">
+                //     content
+                // </div></div>`;
+                //     $('#content').html(content);
+                }
+            });
         })
     </script>
 </body>
