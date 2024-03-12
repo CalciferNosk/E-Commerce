@@ -41,7 +41,7 @@ class GlobalController extends CI_Controller {
 		}
 
 		#divide the last id into 2
-		$for_rand_num = $last_item/2;
+		$for_rand_num = 6 ;#$last_item/2;
 
 		#generate random number to array
 		$random_keys=array_rand($all_item,$for_rand_num);

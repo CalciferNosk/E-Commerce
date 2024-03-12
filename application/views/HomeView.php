@@ -187,28 +187,6 @@
             <!-- Container wrapper -->
         </nav>
         <!-- Navbar -->
-
-
-        <div class="row m-5">
-            <div class="container d-flex justify-content-center">
-                <div class="owl-carousel owl-theme">
-
-
-                    <?php foreach ($content as $key => $data) : ?>
-                        <div class="item p-2">
-                            <div class="card">
-                                <center>
-                                    <img style="width: 80px;" src="<?= base_url() ?>assets/images/<?= $data['ItemImages'] ?>" alt="">
-                                </center>
-                            
-                            <p ></p><?= $data['ItemName'] ?></p>
-                            </div>
-                           
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
         <!-- Modal -->
         <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -287,7 +265,6 @@
         var base_url = '<?= base_url() ?>';
 
         var sess = '<?= empty($_SESSION['username']) ? 0 : 1 ?>';
-        $(document).ready(function() {
 
         $(document).ready(function() {
 
