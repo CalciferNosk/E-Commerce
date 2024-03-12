@@ -54,6 +54,7 @@ class GlobalController extends CI_Controller {
 		$this->load->view('HomeView',$data);
 	}
 
+
 	public function loginUser(){
 		$data = $this->global->checkByUserName($_POST['UserName']);
 		// var_dump($data);die;
@@ -74,6 +75,4 @@ class GlobalController extends CI_Controller {
 
      redirect('');
 	}
-
-
 }

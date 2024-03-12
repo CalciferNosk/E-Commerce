@@ -70,7 +70,6 @@
                 <!-- Navbar brand -->
                 <a class="navbar-brand" href="#">
                     <img src="<?= base_url() ?>assets/images/MobileLegendsLogo.png" id="shooping" alt="Shopping" draggable="false" height="30" /></a>
-
                 <!-- Toggle button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
@@ -184,10 +183,32 @@
             <div id="content">
             </div>
         </div>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
 
 
+        <div class="row m-5">
+            <div class="container d-flex justify-content-center">
+                <div class="owl-carousel owl-theme">
 
 
+                    <?php foreach ($content as $key => $data) : ?>
+                        <div class="item p-2">
+                            <div class="card">
+                                <center>
+                                    <img style="width: 80px;" src="<?= base_url() ?>assets/images/<?= $data['ItemImages'] ?>" alt="">
+                                </center>
+                            
+                            <p ></p><?= $data['ItemName'] ?></p>
+                            </div>
+                           
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -215,16 +236,45 @@
                                 <button type="button" class="btn btn-success pull-left mt-3 mb-3">Create New Account</button>
                                 <button type="submit" class="btn btn-primary pull-right mt-3 mb-3"> Login</button>
                             </div>
+        <div class="container">
+            <div id="content">
+            </div>
+        </div>
 
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LoginModalLabel">Welcome to MLBB</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="typeText" class="form-control" />
+                                    <label class="form-label" for="typeText">Username</label>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="password" id="typeText" class="form-control" />
+                                    <label class="form-label" for="typeText">Password</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
     <!-- MDB -->
@@ -235,8 +285,33 @@
     <script src="<?= base_url() ?>assets/js/owl.carousel.min.js"></script>
     <script>
         var base_url = '<?= base_url() ?>';
+
         var sess = '<?= empty($_SESSION['username']) ? 0 : 1 ?>';
         $(document).ready(function() {
+
+        $(document).ready(function() {
+
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 2,
+                // nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 8
+                    }
+                }
+            })
+            $(document).on('click', ".LoginBtn", function() {
+                console.log('here')
+                $("#LoginModal").modal('toggle')
+            })
+
 
             $('.owl-carousel').owlCarousel({
                 loop: true,
@@ -301,7 +376,6 @@
             })
         })
 
-
         $(window).on('load', function() {
 
             $.ajax({
@@ -329,9 +403,7 @@
                                         </div>
                                     </div>
                                 </div>`;
-
                     })
-
                     // console.log(item)
                     item += `</div>`;
 
