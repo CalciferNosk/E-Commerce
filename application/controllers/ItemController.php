@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GlobalController extends CI_Controller {
+class ItemController extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -23,12 +23,16 @@ class GlobalController extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('GlobalModel', 'global');
+        $this->load->model('ItemModel', 'item');
     }
-	public function index()
+
+
+
+	public function getItem()
 	{
-        $data['content'] = $this->global->get_content();
-		$this->load->view('HomeView',$data);
+        $items = $this->item->getItem();
+
+        echo json_encode($items);
 	}
 
 }
