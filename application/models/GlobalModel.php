@@ -16,4 +16,12 @@ class GlobalModel extends CI_Model{
         $data = [];
         return $data;
     }
+
+    public function checkByUserName($Username){
+        $sql = "SELECT *, count(*) as `usercount` from tblUser where UserName = '{$Username}'";
+        $result = $this->db->query($sql)->row();
+    
+        return $result->usercount > 0 ? $result:0;
+    }
+
 }

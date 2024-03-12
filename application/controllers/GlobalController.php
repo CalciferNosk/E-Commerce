@@ -54,5 +54,26 @@ class GlobalController extends CI_Controller {
 		$this->load->view('HomeView',$data);
 	}
 
+	public function loginUser(){
+		$data = $this->global->checkByUserName($_POST['UserName']);
+		// var_dump($data);die;
+		if(!empty($data)){
+			if($_POST['Password']==$data->Password){
+				$_SESSION['username'] = $data->UserName;
+				echo json_encode(1);
+			}else{
+				echo json_encode(2);
+			}
+		}else{
+			echo json_encode(0);
+		}
+	}
+
+	public function logout(){
+		$this->session->sess_destroy();
+
+     redirect('');
+	}
+
 
 }

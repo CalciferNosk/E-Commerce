@@ -51,7 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'GlobalController';
 $route['get-item']           =  'ItemController/getItem';
-
+$route['login-user']         = 'GlobalController/loginUser';
+$route['Logout']             = 'GlobalController/logout';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

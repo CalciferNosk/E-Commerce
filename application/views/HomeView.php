@@ -69,7 +69,7 @@
             <div class="container">
                 <!-- Navbar brand -->
                 <a class="navbar-brand" href="#">
-                    <img id="shooping" alt="Shopping" draggable="false" height="30" /></a>
+                    <img src="<?= base_url() ?>assets/images/MobileLegendsLogo.png" id="shooping" alt="Shopping" draggable="false" height="30" /></a>
 
                 <!-- Toggle button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +134,22 @@
                             </a>
                         </li>
                         <li class="nav-item" style="width: 65px;">
-                            <a class="nav-link d-flex align-items-center LoginBtn" id="" href="#!">Sign In</a>
+                            <?php if (isset($_SESSION['username'])) : ?>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle nav-link d-flex align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <?= $_SESSION['username'] ?>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <li><a class="dropdown-item" id="LogoutBtn" href="#">Logout</a></li>
+                                    </ul>
+                                </div>
+                                <!-- <a class="nav-link d-flex align-items-center" id="" href="#!"><?= $_SESSION['username'] ?> </a> -->
+                            <?php else : ?>
+                                <a class="nav-link d-flex align-items-center LoginBtn" id="" href="#!">Sign In</a>
+                            <?php endif; ?>
                         </li>
                     </ul>
                 </div>
@@ -145,7 +160,7 @@
         <!-- Navbar -->
 
 
-        <div class="row m-5">
+        <div class="row m-5 ">
             <div class="container d-flex justify-content-center">
                 <div class="owl-carousel owl-theme">
 
@@ -155,10 +170,10 @@
                                 <center>
                                     <img style="width: 80px;" src="<?= base_url() ?>assets/images/<?= $data['ItemImages'] ?>" alt="">
                                 </center>
-                            
-                            <p ></p><?= $data['ItemName'] ?></p>
+
+                                <p></p><?= $data['ItemName'] ?></p>
                             </div>
-                           
+
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -181,29 +196,34 @@
                         <h5 class="modal-title" id="LoginModalLabel">Welcome to MLBB</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form>
+                    <form class="m-3" id="LoginForm">
                         <div class="modal-body">
                             <div class="input-group mb-3">
                                 <div class="form-outline" data-mdb-input-init>
-                                    <input type="text" id="typeText" class="form-control" />
+                                    <input type="text" id="UserName" class="form-control" />
                                     <label class="form-label" for="typeText">Username</label>
                                 </div>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="form-outline" data-mdb-input-init>
-                                    <input type="password" id="typeText" class="form-control" />
+                                    <input type="password" id="Password" class="form-control" />
                                     <label class="form-label" for="typeText">Password</label>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                            <a href="#" class="forgot-pass">Forgot Password?</a>
+                            <div class="m-8">
+                                <button type="button" class="btn btn-success pull-left mt-3 mb-3">Create New Account</button>
+                                <button type="submit" class="btn btn-primary pull-right mt-3 mb-3"> Login</button>
                             </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+
+
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
@@ -215,6 +235,7 @@
     <script src="<?= base_url() ?>assets/js/owl.carousel.min.js"></script>
     <script>
         var base_url = '<?= base_url() ?>';
+        var sess = '<?= empty($_SESSION['username']) ? 0 : 1 ?>';
         $(document).ready(function() {
 
             $('.owl-carousel').owlCarousel({
@@ -235,10 +256,51 @@
             })
             $(document).on('click', ".LoginBtn", function() {
                 console.log('here')
-                $("#LoginModal").modal('toggle')
+                if (sess == 1) {
+                    alert('Item Added')
+                } else {
+                    $("#LoginModal").modal('toggle')
+                }
+
             })
 
+            $(document).on('submit', '#LoginForm', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST", //method
+                    url: base_url + 'login-user', //action
+                    data: {
+                        id: 1,
+                        UserName: $('#UserName').val(),
+                        Password: $('#Password').val(),
+                    }, // inputs
+                    datatype: 'json', // return data type
+                    success: function(result) {
+
+
+                        if (result == 1) {
+                            location.reload();
+                        }
+                        if (result == 0) {
+                            alert("User Not Found");
+                        }
+                        if (result == 2) {
+                            alert("Password Not Match");
+                        }
+                    }
+
+                })
+
+
+
+            })
+
+            $(document).on('click', '#LogoutBtn', function(){
+
+                location.href = base_url + "Logout";
+            })
         })
+
 
         $(window).on('load', function() {
 
