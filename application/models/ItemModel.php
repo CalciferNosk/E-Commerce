@@ -10,10 +10,12 @@ class ItemModel extends CI_Model{
         
     }
 
-   public function getItem($ids = null){
-        $where = $ids == null ? '' : 'Where id in ('. implode(",",$ids) .')';
-        $sql = "select * from tblItem {$where}";
-
+   public function getItem($category = null,$ids = null){
+        $where = $ids == null ? '' : 'AND id in ('. implode(",",$ids) .')';
+        $cat =  $category == null ? '' : "AND ItemCategoryId = {$category}";
+       
+        $sql = "select * from tblItem Where 1=1  {$where} {$cat}";
+          // var_dump($sql);die;
         return  $this->db->query($sql)->result_array();
    }
    public function getLastItemId(){
