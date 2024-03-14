@@ -26,8 +26,9 @@ class GlobalController extends CI_Controller {
         $this->load->model('GlobalModel', 'global');
 		$this->load->model('ItemModel', 'item');
     }
-	public function index()
+	public function index($category = null)
 	{	
+		
 		#get last id in table Items
 		$last_item = (int)$this->item->getLastItemId()->id;
 
@@ -48,7 +49,7 @@ class GlobalController extends CI_Controller {
 		
 
 		#getting content/data with parameters
-        $data['content'] = $this->item->getItem($random_keys);
+        $data['content'] = $this->item->getItem($category,$random_keys);
 
 
 		$this->load->view('HomeView',$data);
@@ -57,6 +58,7 @@ class GlobalController extends CI_Controller {
 
 	public function loginUser(){
 		$data = $this->global->checkByUserName($_POST['UserName']);
+
 		// var_dump($data);die;
 		if(!empty($data)){
 			if($_POST['Password']==$data->Password){

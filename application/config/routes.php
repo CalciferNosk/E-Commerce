@@ -50,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'GlobalController';
-$route['get-item']           =  'ItemController/getItem';
+$route['home/(:any)']        = 'GlobalController/index/$1';
+$route['get-item']           = 'ItemController/getItem';
 $route['login-user']         = 'GlobalController/loginUser';
 $route['Logout']             = 'GlobalController/logout';
 
